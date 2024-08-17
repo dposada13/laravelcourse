@@ -53,7 +53,7 @@ class ProductController extends Controller
             "name" => "required",
             "price" => "required|min:0.01"
         ]);
-        //dd($request->all());
+        dd($request->all());
         return redirect()->route('product.confirmation');
     }
 
