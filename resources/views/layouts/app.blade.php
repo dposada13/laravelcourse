@@ -45,7 +45,7 @@
     <div class="container">
       <small>
         Copyright - <a class="text-reset fw-bold text-decoration-none" target="_blank"
-          href="https://twitter.com/dposada13">
+          href="https://www.linkedin.com/in/dposada13/">
           Daniel Posada
         </a>
       </small>
