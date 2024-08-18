@@ -51,15 +51,12 @@ class ProductController extends Controller
     {
         $request->validate([
             "name" => "required",
-            "price" => "required|min:0.01"
+            "price" => "required|numeric|gt:0"
         ]);
-        dd($request->all());
-        return redirect()->route('product.confirmation');
+        $viewData = [];
+        $viewData["title"] = "Product Created";
+        $viewData["message"] = "The product was created successfully";
+    
+        return view('product.product-created')->with("viewData", $viewData);
     }
-
-    public function confirmation(): View
-    {
-        return view('product.confirmation');
-    }
-
 }
