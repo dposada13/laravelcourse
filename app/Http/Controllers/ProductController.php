@@ -54,7 +54,5 @@ class ProductController extends Controller
         Product::create($request->only(['name', 'price']));
 
         return back();
-
-        return view('product.product-created')->with('viewData', $viewData);
     }
 }
