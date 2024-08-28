@@ -23,6 +23,9 @@
           <a class="nav-link active" href="{{ route('home.contact') }}">Contact</a>
           <a class="nav-link active" href="{{ route('product.index') }}">Product</a>
           <a class="nav-link active" href="{{ route('product.create') }}">Create Product</a>
+          <a class="nav-link active" href="{{ route('cart.index') }}">Cart</a>
+          <a class="nav-link active" href="{{ route('image.index') }}">Image</a>
+          <a class="nav-link active" href="{{ route('imagenotdi.index') }}">imagenotdi</a>
         </div>
       </div>
     </div>
