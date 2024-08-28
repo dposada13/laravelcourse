@@ -43,3 +43,7 @@ Route::post('/products/save', 'App\Http\Controllers\ProductController@save')->na
 Route::get('/products/{id}', 'App\Http\Controllers\ProductController@show')->name('product.show');
 
 Route::get('/product/confirmation', ['App\Http\Controllers\ProductController@confirmation'])->name('product.confirmation');
+
+Route::get('/cart', 'App\Http\Controllers\CartController@index')->name('cart.index');
+Route::get('/cart/add/{id}', 'App\Http\Controllers\CartController@add')->name('cart.add');
+Route::get('/cart/removeAll/', 'App\Http\Controllers\CartController@removeAll')->name('cart.removeAll');
