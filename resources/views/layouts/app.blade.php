@@ -19,13 +19,16 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
           <a class="nav-link active" href="{{ route('home.index') }}">Home</a>
-          <a class="nav-link active" href="{{ route('home.about') }}">About</a>
+          <!-- <a class="nav-link active" href="{{ route('home.about') }}">About</a>
           <a class="nav-link active" href="{{ route('home.contact') }}">Contact</a>
-          <a class="nav-link active" href="{{ route('product.index') }}">Product</a>
-          <a class="nav-link active" href="{{ route('product.create') }}">Create Product</a>
+          <a class="nav-link active" href="{{ route('product.index') }}">Product</a> -->
+          <!-- <a class="nav-link active" href="{{ route('product.create') }}">Create Product</a>
           <a class="nav-link active" href="{{ route('cart.index') }}">Cart</a>
           <a class="nav-link active" href="{{ route('image.index') }}">Image</a>
-          <a class="nav-link active" href="{{ route('imagenotdi.index') }}">imagenotdi</a>
+          <a class="nav-link active" href="{{ route('imagenotdi.index') }}">imagenotdi</a> -->
+          <a class="nav-link active" href="{{ route('fish.index') }}">Fish</a>
+          <a class="nav-link active" href="{{ route('fish.create') }}">Create Fish</a>
+          <a class="nav-link active" href="{{ route('fish.statistics') }}">Statistics Fish</a>
         </div>
       </div>
     </div>
