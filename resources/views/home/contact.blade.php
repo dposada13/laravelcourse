@@ -1,17 +1,15 @@
 @extends('layouts.app')
-@section('title', $title)
-@section('subtitle', $subtitle)
+@section('title', 'Contact Us - Online Store')
+@section('subtitle', 'Contact')
 @section('content')
 <div class="container">
   <div class="row">
-    <div class="col-lg-4 ms-auto">
-      <p class="lead">{{ $email }}</p>
-    </div>
-    <div class="col-lg-4 me-auto">
-      <p class="lead">{{ $address }}</p>
-    </div>
-    <div class="col-lg-4 me-auto">
-      <p class="lead">{{ $number }}</p>
+    <div class="col-lg-12">
+      <div class="contact-details">
+        <p><strong>Email:</strong> {{ $email }}</p>
+        <p><strong>Address:</strong> {{ $address }}</p>
+        <p><strong>Phone:</strong> {{ $phone }}</p>
+      </div>
     </div>
   </div>
 </div>

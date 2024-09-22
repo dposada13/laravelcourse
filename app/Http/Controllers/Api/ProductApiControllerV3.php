@@ -7,6 +7,7 @@ use App\Http\Resources\ProductCollection;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ProductApiControllerV3 extends Controller
 {
@@ -22,25 +23,35 @@ class ProductApiControllerV3 extends Controller
         return response()->json($products, 200);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        // Validar los datos
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric',
-        ]);
+        try {
+            Product::validate($request);
 
-        // Crear el producto
-        $product = Product::create([
-            'price' => $request->price,
-            'name' => $request->name,
-        ]);
+            $product = new Product();
+            $product->setName($request->input('name'));
+            $product->setPrice($request->input('price'));
+            $product->save();
 
-        return response()->json([
-            'message' => 'Producto creado exitosamente',
-            'product' => $product
-        ], 201);
+            return response()->json([
+                'message' => 'Product created successfully',
+                'product' => [
+                    'id' => $product->getId(),
+                    'name' => $product->getName(),
+                    'price' => $product->getPrice(),
+                ]
+            ], 201);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'An error occurred while creating the product',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
-
 
 }

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class ProductController extends Controller
@@ -20,39 +21,50 @@ class ProductController extends Controller
         return view('product.index')->with('viewData', $viewData);
     }
 
-    public function show(string $id): RedirectResponse|\Illuminate\View\View
+    public function show(string $id): View|RedirectResponse
     {
-        $viewData = [];
         try {
+
             $product = Product::findOrFail($id);
-        } catch (Exception $e) {
+
+            $viewData = [];
+            $viewData['title'] = 'Products - Online Store';
+            $viewData['subtitle'] = 'List of products';
+            $viewData['product'] = $product;
+
+            return view('product.show')->with('viewData', $viewData);
+        } catch (\Exception $e) {
             return redirect()->route('home.index');
         }
-        $viewData['title'] = $product['name'].' - Online Store';
-        $viewData['subtitle'] = $product['name'].' - Product information';
-        $viewData['product'] = $product;
-
-        return view('product.show')->with('viewData', $viewData);
     }
 
-    //D. Product creation (simulation)
     public function create(): View
     {
-        $viewData = []; //to be sent to the view
+        $viewData = [];
         $viewData['title'] = 'Create product';
 
         return view('product.create')->with('viewData', $viewData);
     }
 
-    public function save(Request $request): \Illuminate\Http\RedirectResponse
+    public function save(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required',
-            'price' => 'required|numeric|gt:0',
+
+        Product::validate($request);
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = Str::random(10).'.'.$image->getClientOriginalExtension();
+            $imagePath = $image->storeAs('public/images', $imageName);
+            $imagePath = Storage::url($imagePath);
+        }
+
+        Product::create([
+            'name' => $request->name,
+            'price' => $request->price,
+            'image' => $imagePath
         ]);
 
-        Product::create($request->only(['name', 'price']));
-
-        return back();
+        return back()->with('success', 'Product created successfully.');
     }
 }

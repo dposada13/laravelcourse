@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\Request;
 
 class Product extends Model
 {
@@ -16,18 +17,13 @@ class Product extends Model
      * $this->attributes['id'] - int - contains the product primary key (id)
      * $this->attributes['name'] - string - contains the product name
      * $this->attributes['price'] - int - contains the product price
-     * $this->comments - Comment[] - contains the associated comments
+     * * $this->comments - Comment[] - contains the associated comments
      */
     protected $fillable = ['name', 'price'];
 
     public function getId(): int
     {
         return $this->attributes['id'];
-    }
-
-    public function setId($id): void
-    {
-        $this->attributes['id'] = $id;
     }
 
     public function getName(): string
@@ -63,5 +59,14 @@ class Product extends Model
     public function setComments(Collection $comments): void
     {
         $this->comments = $comments;
+    }
+
+    public static function validate(Request $request): void
+    {
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required|numeric|gt:0',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
     }
 }
